@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Короткие конспекты по математике для олимпиад." />
+  <title>Матемсок — теория к олимпиадам</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23233b8d'/%3E%3Cpath d='M13 16h38M13 32h38M13 48h38' stroke='%23f8f5ea' stroke-width='4'/%3E%3Cpath d='M28 10v44' stroke='%23ffbd46' stroke-width='4'/%3E%3C/svg%3E" />
+  <style>
+    :root { --ink:#20253a; --blue:#233b8d; --paper:#fffdf6; --cream:#f5efd9; --yellow:#ffca57; --red:#d9534f; --line:#d7d2bf; --mint:#b9e4d2; }
+    * { box-sizing: border-box; }
+    body { margin:0; color:var(--ink); font-family: "Trebuchet MS", Arial, sans-serif; background-color:var(--cream); background-image:linear-gradient(rgba(115,126,167,.10) 1px, transparent 1px),linear-gradient(90deg, rgba(115,126,167,.10) 1px, transparent 1px); background-size:22px 22px; }
+    button, input, textarea, select { font:inherit; }
+    button { cursor:pointer; color:inherit; }
+    .page { max-width:1180px; margin:0 auto; padding:20px 22px 58px; }
+    header { display:flex; justify-content:space-between; align-items:flex-start; gap:20px; margin:4px 0 28px; }
+    .brand { display:flex; align-items:center; gap:12px; }
+    .logo { width:50px; height:50px; transform:rotate(-4deg); border:3px solid var(--ink); border-radius:7px 11px 6px 9px; background:var(--yellow); display:grid; place-items:center; font:900 28px Georgia,serif; box-shadow:4px 4px 0 var(--ink); }
+    h1 { margin:0; font-size:clamp(1.7rem,4vw,2.6rem); letter-spacing:-1.5px; }
+    .scribble { margin:3px 0 0; color:#48506a; font-family:"Comic Sans MS","Trebuchet MS",cursive; font-size:1rem; transform:rotate(-1deg); }
+    .admin-switch { border:2px solid var(--ink); border-radius:6px 10px 7px 4px; padding:10px 14px; background:var(--paper); box-shadow:3px 3px 0 var(--ink); font-weight:bold; }
+    .admin-switch:hover { background:var(--yellow); transform:translate(-1px,-1px); box-shadow:5px 5px 0 var(--ink); }
+    .topbar { background:var(--ink); color:white; padding:10px 14px; border:3px solid var(--ink); border-radius:11px 5px 12px 7px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; transform:rotate(.2deg); }
+    .topbar strong { margin-right:auto; }
+    .topbar button { color:white; border:0; background:transparent; border-bottom:2px solid transparent; padding:7px 6px; }
+    .topbar button.active { color:var(--yellow); border-color:var(--yellow); }
+    .stats { color:#d9dcf1; font-size:.86rem; }
+    main { padding-top:24px; }
+    .intro { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:18px; align-items:end; border-left:6px solid var(--blue); padding:3px 0 3px 15px; margin:0 0 23px; }
+    .intro h2 { font-size:clamp(1.45rem,3vw,2rem); margin:0 0 6px; }
+    .intro p { margin:0; max-width:700px; line-height:1.45; }
+    .note { font-family:"Comic Sans MS",cursive; color:var(--blue); transform:rotate(-2deg); font-weight:bold; }
+    .toolbar { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:0 0 21px; }
+    #search { flex:1 1 260px; min-height:42px; padding:9px 13px; border:2px solid var(--ink); border-radius:4px 9px 5px 8px; background:var(--paper); outline:none; }
+    #search:focus { box-shadow:3px 3px 0 var(--blue); }
+    .filters { display:flex; gap:7px; flex-wrap:wrap; }
+    .filter { border:2px dashed var(--blue); padding:7px 10px; background:#eef1ff; border-radius:9px 4px 8px 5px; }
+    .filter.selected { background:var(--yellow); border-style:solid; font-weight:bold; }
+    .topic-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:18px; }
+    .topic { position:relative; display:flex; flex-direction:column; min-height:285px; padding:19px 17px 14px; background:var(--paper); border:2px solid var(--ink); border-radius:4px 12px 7px 10px; box-shadow:5px 6px 0 rgba(32,37,58,.72); transition:transform .15s,box-shadow .15s; }
+    .topic:nth-child(3n+2) { transform:rotate(.7deg); border-radius:10px 4px 12px 6px; }
+    .topic:nth-child(3n+3) { transform:rotate(-.6deg); }
+    .topic:hover { transform:translate(-2px,-3px) rotate(0); box-shadow:8px 9px 0 rgba(32,37,58,.75); }
+    .tag { align-self:flex-start; background:var(--mint); border:1.5px solid var(--ink); padding:3px 8px; border-radius:3px 7px 4px 8px; font-size:.78rem; font-weight:bold; }
+    .topic h3 { margin:13px 0 8px; font-size:1.32rem; }
+    .theory { font-size:.95rem; line-height:1.5; flex:1; white-space:pre-line; }
+    .topic-footer { display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:12px; padding-top:10px; border-top:1px dashed #8d8c83; }
+    .mark { border:2px solid var(--ink); background:#fff; padding:6px 9px; border-radius:7px 3px 8px 4px; font-size:.9rem; }
+    .mark.on { background:var(--yellow); }
+    .tiny { border:0; background:transparent; color:var(--blue); text-decoration:underline; font-weight:bold; }
+    .empty { grid-column:1/-1; padding:35px; text-align:center; border:2px dashed var(--ink); background:rgba(255,253,246,.76); font-size:1.1rem; }
+    .saved-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(245px,1fr)); gap:15px; }
+    .saved-item { padding:15px; background:#fff; border:2px solid var(--ink); border-radius:9px 3px 10px 5px; box-shadow:3px 4px 0 var(--ink); }
+    .saved-item h3 { margin:7px 0; }
+    .admin-panel { margin-top:30px; border:3px solid var(--blue); border-radius:12px 5px 11px 6px; background:#e9ecff; padding:20px; }
+    .admin-panel h2 { margin:0 0 5px; }
+    .admin-panel > p { margin:0 0 15px; }
+    .editor { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .field { display:grid; gap:5px; font-weight:bold; }
+    .field.full { grid-column:1/-1; }
+    .field input,.field textarea,.field select { width:100%; padding:9px; border:2px solid var(--ink); border-radius:5px; background:#fffef9; }
+    .field textarea { min-height:115px; resize:vertical; line-height:1.4; }
+    .form-actions { grid-column:1/-1; display:flex; gap:10px; flex-wrap:wrap; }
+    .primary { background:var(--yellow); border:2px solid var(--ink); border-radius:5px 9px 4px 8px; padding:9px 13px; font-weight:bold; box-shadow:2px 2px 0 var(--ink); }
+    .secondary { background:white; border:2px solid var(--ink); border-radius:7px 3px 8px 4px; padding:9px 13px; }
+    .admin-list { margin-top:21px; display:grid; gap:9px; }
+    .admin-row { display:flex; align-items:center; gap:10px; justify-content:space-between; padding:9px 11px; background:white; border:1.5px solid var(--ink); border-radius:5px; }
+    .admin-row small { display:block; color:#596077; }
+    .row-actions { display:flex; gap:6px; }
+    .danger { border:2px solid var(--red); color:#9e322e; background:#fff; padding:6px 9px; border-radius:5px; }
+    footer { margin-top:36px; text-align:center; color:#5c6278; font-size:.9rem; }
+    .hidden { display:none !important; }
+    @media (max-width:640px) { .page{padding:14px 14px 40px} header{margin-bottom:20px}.logo{width:42px;height:42px}.admin-switch{padding:8px 10px}.intro{grid-template-columns:1fr}.topbar strong{width:100%}.editor{grid-template-columns:1fr}.admin-row{align-items:flex-start;flex-direction:column}.topic{min-height:250px} }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand"><div class="logo">∑</div><div><h1>МАТЕМСОК</h1><p class="scribble">сухая теория перед олимпиадой</p></div></div>
+      <button class="admin-switch" id="adminSwitch" aria-expanded="false">⚙ админка</button>
+    </header>
+    <nav class="topbar" aria-label="Главное меню">
+      <strong>📓 мой конспект</strong>
+      <button class="nav active" data-view="catalog">Все темы</button>
+      <button class="nav" data-view="marked">★ Помеченные</button>
+      <button class="nav" data-view="plan">Мой список</button>
+      <span class="stats" id="stats"></span>
+    </nav>
+    <main>
+      <section id="catalogView">
+        <div class="intro"><div><h2>Повтори главное, а не всё подряд</h2><p>Короткие формулы, определения и факты по темам, которые чаще всего выстреливают на математических олимпиадах.</p></div><span class="note">лучше 15 минут, чем паника!</span></div>
+        <div class="toolbar"><input id="search" type="search" placeholder="Найти тему или формулу..." aria-label="Поиск по темам"><div class="filters" id="filters"></div></div>
+        <div class="topic-grid" id="topicGrid"></div>
+      </section>
+      <section id="markedView" class="hidden"><div class="intro"><div><h2>★ Помеченные</h2><p>Твои быстрые закладки — как любимые треки, только без грустных песен.</p></div></div><div class="saved-list" id="markedList"></div></section>
+      <section id="planView" class="hidden"><div class="intro"><div><h2>Мой список повторения</h2><p>Собери здесь темы, которые точно надо пройти перед олимпиадой.</p></div><span class="note">убирай по мере готовности</span></div><div class="saved-list" id="planList"></div></section>
+      <section id="adminPanel" class="admin-panel hidden" aria-label="Панель администратора">
+        <h2>Панель администратора</h2><p>Добавляй новые карточки или меняй старые. Изменения хранятся в этом браузере.</p>
+        <form id="topicForm" class="editor">
+          <label class="field">Название темы<input id="title" required placeholder="Например: Комплексные числа"></label>
+          <label class="field">Раздел<select id="category"><option>Алгебра</option><option>Геометрия</option><option>Теория чисел</option><option>Комбинаторика</option></select></label>
+          <label class="field full">Короткий конспект<textarea id="content" required placeholder="Пиши коротко: определения, формулы, важные факты."></textarea></label>
+          <div class="form-actions"><button class="primary" type="submit" id="saveTopic">Добавить тему</button><button class="secondary hidden" type="button" id="cancelEdit">Отменить редактирование</button></div>
+        </form>
+        <div class="admin-list" id="adminList"></div>
+      </section>
+    </main>
+    <footer>Сделано для повторения. Ручка, черновик и голова — всё, что нужно.</footer>
+  </div>
+  <script>
+  (() => {
+    const initialTopics = [
+      {id:'quad', category:'Алгебра', title:'Квадратное уравнение', content:'ax² + bx + c = 0, a ≠ 0.\nD = b² − 4ac.\nx₁,₂ = (−b ± √D) / 2a.\nВиет: x₁ + x₂ = −b/a, x₁x₂ = c/a.'},
+      {id:'ineq', category:'Алгебра', title:'Неравенства', content:'AM–GM: (a₁+…+aₙ)/n ≥ ⁿ√(a₁…aₙ), если aᵢ ≥ 0.\nКоши: (Σaᵢ²)(Σbᵢ²) ≥ (Σaᵢbᵢ)².\nСледи за ОДЗ и знаком при умножении на выражение.'},
+      {id:'trig', category:'Алгебра', title:'Тригонометрия', content:'sin²x + cos²x = 1.\nsin(α±β)=sinαcosβ±cosαsinβ.\ncos(α±β)=cosαcosβ∓sinαsinβ.\ntg x = sin x / cos x.'},
+      {id:'tri', category:'Геометрия', title:'Треугольник', content:'a² = b² + c² − 2bc·cos A.\nS = ½bc·sin A = pr, где r — радиус вписанной окружности.\nТеорема синусов: a/sin A = 2R.'},
+      {id:'circle', category:'Геометрия', title:'Окружность', content:'Вписанный угол равен половине центрального, опирающегося на ту же дугу.\nКасательная перпендикулярна радиусу.\nСтепень точки: PA·PB = PC·PD.'},
+      {id:'mod', category:'Теория чисел', title:'Делимость и остатки', content:'a ≡ b (mod m), если m делит a−b.\nМожно складывать и умножать сравнения.\nПризнак делимости на 3 и 9: сумма цифр кратна 3 или 9.'},
+      {id:'gcd', category:'Теория чисел', title:'НОД и алгоритм Евклида', content:'НОД(a,b)=НОД(b, a mod b).\nЕсли (a,b)=1 и a|bc, то a|c.\nНОК(a,b)·НОД(a,b)=ab для натуральных a,b.'},
+      {id:'comb', category:'Комбинаторика', title:'Подсчёт вариантов', content:'Правило суммы: несовместимые случаи складываем.\nПравило произведения: последовательные выборы перемножаем.\nCₙᵏ = n! / (k!(n−k)!).\nPₙ = n!.'},
+      {id:'binom', category:'Комбинаторика', title:'Бином Ньютона', content:'(a+b)ⁿ = Σ Cₙᵏaⁿ⁻ᵏbᵏ.\nСумма коэффициентов равна 2ⁿ.\nCₙᵏ = Cₙⁿ⁻ᵏ.'}
+    ];
+    const expandedTopics = initialTopics.concat([
+      {id:'powers', category:'\u0410\u043b\u0433\u0435\u0431\u0440\u0430', title:'\u0421\u0442\u0435\u043f\u0435\u043d\u0438 \u0438 \u043b\u043e\u0433\u0430\u0440\u0438\u0444\u043c\u044b', content:'a\u1d50\u00b7a\u207f=a\u1d50\u207a\u207f; (a\u1d50)\u207f=a\u1d50\u207f.\nlog\u2090b=c \u21d4 a\u1d9c=b.\nlog\u2090(xy)=log\u2090x+log\u2090y.\n\u041e\u0414\u0417: a>0, a\u22601, x>0.'},
+      {id:'seq', category:'\u0410\u043b\u0433\u0435\u0431\u0440\u0430', title:'\u041f\u043e\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u043d\u043e\u0441\u0442\u0438', content:'\u0410\u0440\u0438\u0444\u043c. \u043f\u0440\u043e\u0433\u0440\u0435\u0441\u0441\u0438\u044f: a\u2099=a\u2081+d(n\u22121), S\u2099=(a\u2081+a\u2099)n/2.\n\u0413\u0435\u043e\u043c. \u043f\u0440\u043e\u0433\u0440\u0435\u0441\u0441\u0438\u044f: b\u2099=b\u2081q\u207f\u207b\u00b9, S\u2099=b\u2081(q\u207f\u22121)/(q\u22121).'},
+      {id:'poly', category:'\u0410\u043b\u0433\u0435\u0431\u0440\u0430', title:'\u041c\u043d\u043e\u0433\u043e\u0447\u043b\u0435\u043d\u044b', content:'\u0422\u0435\u043e\u0440\u0435\u043c\u0430 \u0411\u0435\u0437\u0443: \u043e\u0441\u0442\u0430\u0442\u043e\u043a \u043e\u0442 P(x) \u043d\u0430 x\u2212a \u0440\u0430\u0432\u0435\u043d P(a).\n\u0415\u0441\u043b\u0438 P(a)=0, \u0442\u043e x\u2212a \u2014 \u0434\u0435\u043b\u0438\u0442\u0435\u043b\u044c P(x).'},
+      {id:'similar', category:'\u0413\u0435\u043e\u043c\u0435\u0442\u0440\u0438\u044f', title:'\u041f\u043e\u0434\u043e\u0431\u0438\u0435 \u0442\u0440\u0435\u0443\u0433\u043e\u043b\u044c\u043d\u0438\u043a\u043e\u0432', content:'\u0414\u0432\u0430 \u0443\u0433\u043b\u0430 \u0440\u0430\u0432\u043d\u044b \u2014 \u0442\u0440\u0435\u0443\u0433\u043e\u043b\u044c\u043d\u0438\u043a\u0438 \u043f\u043e\u0434\u043e\u0431\u043d\u044b.\n\u041e\u0442\u043d\u043e\u0448\u0435\u043d\u0438\u0435 \u043f\u0435\u0440\u0438\u043c\u0435\u0442\u0440\u043e\u0432 = k, \u043e\u0442\u043d\u043e\u0448\u0435\u043d\u0438\u0435 \u043f\u043b\u043e\u0449\u0430\u0434\u0435\u0439 = k\u00b2.'},
+      {id:'quads', category:'\u0413\u0435\u043e\u043c\u0435\u0442\u0440\u0438\u044f', title:'\u0427\u0435\u0442\u044b\u0440\u0451\u0445\u0443\u0433\u043e\u043b\u044c\u043d\u0438\u043a\u0438', content:'\u041f\u0430\u0440\u0430\u043b\u043b\u0435\u043b\u043e\u0433\u0440\u0430\u043c\u043c: \u0434\u0438\u0430\u0433\u043e\u043d\u0430\u043b\u0438 \u0434\u0435\u043b\u044f\u0442\u0441\u044f \u043f\u043e\u043f\u043e\u043b\u0430\u043c.\n\u0420\u043e\u043c\u0431: \u0434\u0438\u0430\u0433\u043e\u043d\u0430\u043b\u0438 \u043f\u0435\u0440\u043f\u0435\u043d\u0434\u0438\u043a\u0443\u043b\u044f\u0440\u043d\u044b.\n\u0421\u0440\u0435\u0434\u043d\u044f\u044f \u043b\u0438\u043d\u0438\u044f \u0442\u0440\u0430\u043f\u0435\u0446\u0438\u0438 = \u043f\u043e\u043b\u0443\u0441\u0443\u043c\u043c\u0435 \u043e\u0441\u043d\u043e\u0432\u0430\u043d\u0438\u0439.'},
+      {id:'vectors', category:'\u0413\u0435\u043e\u043c\u0435\u0442\u0440\u0438\u044f', title:'\u0412\u0435\u043a\u0442\u043e\u0440\u044b', content:'|a|\u00b2=a\u00b7a.\na\u00b7b=|a||b|cos \u03c6.\n\u0412\u0435\u043a\u0442\u043e\u0440\u044b \u043f\u0435\u0440\u043f\u0435\u043d\u0434\u0438\u043a\u0443\u043b\u044f\u0440\u043d\u044b, \u0435\u0441\u043b\u0438 a\u00b7b=0.'},
+      {id:'solid', category:'\u0413\u0435\u043e\u043c\u0435\u0442\u0440\u0438\u044f', title:'\u0421\u0442\u0435\u0440\u0435\u043e\u043c\u0435\u0442\u0440\u0438\u044f', content:'V \u043f\u0440\u0438\u0437\u043c\u044b=S\u043e\u0441\u043d\u00b7h.\nV \u043f\u0438\u0440\u0430\u043c\u0438\u0434\u044b=\u2153S\u043e\u0441\u043d\u00b7h.\nV \u0448\u0430\u0440\u0430=4\u03c0R\u00b3/3; S \u0448\u0430\u0440\u0430=4\u03c0R\u00b2.'},
+      {id:'prime', category:'\u0422\u0435\u043e\u0440\u0438\u044f \u0447\u0438\u0441\u0435\u043b', title:'\u041f\u0440\u043e\u0441\u0442\u044b\u0435 \u0447\u0438\u0441\u043b\u0430', content:'\u0423 \u0441\u043e\u0441\u0442\u0430\u0432\u043d\u043e\u0433\u043e n \u0435\u0441\u0442\u044c \u0434\u0435\u043b\u0438\u0442\u0435\u043b\u044c \u043d\u0435 \u0431\u043e\u043b\u044c\u0448\u0435 \u221an.\n\u0420\u0430\u0437\u043b\u043e\u0436\u0435\u043d\u0438\u0435 \u043d\u0430 \u043f\u0440\u043e\u0441\u0442\u044b\u0435 \u043c\u043d\u043e\u0436\u0438\u0442\u0435\u043b\u0438 \u0435\u0434\u0438\u043d\u0441\u0442\u0432\u0435\u043d\u043d\u043e.'},
+      {id:'dio', category:'\u0422\u0435\u043e\u0440\u0438\u044f \u0447\u0438\u0441\u0435\u043b', title:'\u0414\u0438\u043e\u0444\u0430\u043d\u0442\u043e\u0432\u044b \u0443\u0440\u0430\u0432\u043d\u0435\u043d\u0438\u044f', content:'ax+by=c \u0438\u043c\u0435\u0435\u0442 \u0446\u0435\u043b\u044b\u0435 \u0440\u0435\u0448\u0435\u043d\u0438\u044f \u21d4 \u041d\u041e\u0414(a,b) \u0434\u0435\u043b\u0438\u0442 c.\n\u041e\u0434\u043d\u043e \u0440\u0435\u0448\u0435\u043d\u0438\u0435 \u0434\u0430\u0451\u0442 \u0440\u0430\u0441\u0448\u0438\u0440\u0435\u043d\u043d\u044b\u0439 \u0430\u043b\u0433\u043e\u0440\u0438\u0442\u043c \u0415\u0432\u043a\u043b\u0438\u0434\u0430.'},
+      {id:'dir', category:'\u041a\u043e\u043c\u0431\u0438\u043d\u0430\u0442\u043e\u0440\u0438\u043a\u0430', title:'\u041f\u0440\u0438\u043d\u0446\u0438\u043f \u0414\u0438\u0440\u0438\u0445\u043b\u0435', content:'\u0415\u0441\u043b\u0438 \u043f\u0440\u0435\u0434\u043c\u0435\u0442\u043e\u0432 \u0431\u043e\u043b\u044c\u0448\u0435, \u0447\u0435\u043c \u044f\u0449\u0438\u043a\u043e\u0432, \u0442\u043e \u0432 \u043e\u0434\u043d\u043e\u043c \u044f\u0449\u0438\u043a\u0435 \u0445\u043e\u0442\u044f \u0431\u044b \u0434\u0432\u0430 \u043f\u0440\u0435\u0434\u043c\u0435\u0442\u0430.\n\u0423\u0441\u0438\u043b\u0435\u043d\u0438\u0435: \u043d\u0430\u0439\u0434\u0451\u0442\u0441\u044f \u044f\u0449\u0438\u043a \u0441 \u043d\u0435 \u043c\u0435\u043d\u0435\u0435 \u2308n/k\u2309 \u043f\u0440\u0435\u0434\u043c\u0435\u0442\u0430\u043c\u0438.'}
+    ]);
+    const $ = s => document.querySelector(s);
+    const storage = key => JSON.parse(localStorage.getItem(key) || 'null');
+    const savedTopics = storage('mathsok_topics');
+    let topics = savedTopics ? savedTopics.concat(expandedTopics.filter(t => !savedTopics.some(s => s.id === t.id))) : expandedTopics;
+    let marked = storage('mathsok_marked') || [];
+    let plan = storage('mathsok_plan') || [];
+    let activeCategory = 'Все'; let activeView = 'catalog'; let editingId = null;
+    const save = () => { localStorage.setItem('mathsok_topics', JSON.stringify(topics)); localStorage.setItem('mathsok_marked', JSON.stringify(marked)); localStorage.setItem('mathsok_plan', JSON.stringify(plan)); };
+    const esc = s => String(s).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+    const categories = () => ['Все', ...new Set(topics.map(t => t.category))];
+    function card(t) { const isMark=marked.includes(t.id), isPlan=plan.includes(t.id); return `<article class="topic"><span class="tag">${esc(t.category)}</span><h3>${esc(t.title)}</h3><div class="theory">${esc(t.content)}</div><div class="topic-footer"><button class="mark ${isMark?'on':''}" data-action="mark" data-id="${t.id}" aria-label="Пометить тему">${isMark?'★ помечено':'☆ пометить'}</button><button class="tiny" data-action="plan" data-id="${t.id}">${isPlan?'убрать из списка':'в мой список'}</button></div></article>`; }
+    function renderCatalog() { const q=$('#search').value.trim().toLowerCase(); const shown=topics.filter(t => (activeCategory==='Все'||t.category===activeCategory)&&(`${t.title} ${t.content} ${t.category}`).toLowerCase().includes(q)); $('#filters').innerHTML=categories().map(c=>`<button class="filter ${c===activeCategory?'selected':''}" data-category="${esc(c)}">${esc(c)}</button>`).join(''); $('#topicGrid').innerHTML=shown.length?shown.map(card).join(''):'<div class="empty">Ничего не нашлось. Попробуй другое слово или добавь тему в админке.</div>'; }
+    function savedCard(t, type) { return `<article class="saved-item"><span class="tag">${esc(t.category)}</span><h3>${esc(t.title)}</h3><p>${esc(t.content).split('\n')[0]}</p><button class="tiny" data-action="${type==='marked'?'mark':'plan'}" data-id="${t.id}">убрать</button></article>`; }
+    function renderSaved() { const markedTopics=topics.filter(t=>marked.includes(t.id)), planTopics=topics.filter(t=>plan.includes(t.id)); $('#markedList').innerHTML=markedTopics.length?markedTopics.map(t=>savedCard(t,'marked')).join(''):'<div class="empty">Тут пока пусто. Нажми ☆ на нужной карточке.</div>'; $('#planList').innerHTML=planTopics.length?planTopics.map(t=>savedCard(t,'plan')).join(''):'<div class="empty">Собери свой маршрут: жми «в мой список» в каталоге.</div>'; $('#stats').textContent=`★ ${marked.length}  ·  мой список: ${plan.length}`; }
+    function renderAdmin() { $('#adminList').innerHTML=topics.map(t=>`<div class="admin-row"><div><b>${esc(t.title)}</b><small>${esc(t.category)}</small></div><div class="row-actions"><button class="secondary" data-edit="${t.id}">изменить</button><button class="danger" data-delete="${t.id}">удалить</button></div></div>`).join(''); }
+    function render() { renderCatalog(); renderSaved(); renderAdmin(); }
+    function toggle(list, id) { const i=list.indexOf(id); i<0?list.push(id):list.splice(i,1); save(); render(); }
+    document.addEventListener('click', e => { const a=e.target.closest('[data-action]'); if(a){ const id=a.dataset.id; toggle(a.dataset.action==='mark'?marked:plan,id); return; } const f=e.target.closest('[data-category]'); if(f){activeCategory=f.dataset.category;renderCatalog();} const edit=e.target.closest('[data-edit]'); if(edit){const t=topics.find(x=>x.id===edit.dataset.edit); editingId=t.id; $('#title').value=t.title;$('#category').value=t.category;$('#content').value=t.content;$('#saveTopic').textContent='Сохранить изменения';$('#cancelEdit').classList.remove('hidden');$('#adminPanel').scrollIntoView({behavior:'smooth'});} const del=e.target.closest('[data-delete]'); if(del && confirm('Удалить эту тему?')){topics=topics.filter(t=>t.id!==del.dataset.delete);marked=marked.filter(id=>id!==del.dataset.delete);plan=plan.filter(id=>id!==del.dataset.delete);save();render();} });
+    $('#search').addEventListener('input',renderCatalog);
+    document.querySelectorAll('.nav').forEach(b=>b.addEventListener('click',()=>{activeView=b.dataset.view; document.querySelectorAll('.nav').forEach(x=>x.classList.toggle('active',x===b)); ['catalog','marked','plan'].forEach(v=>$('#'+v+'View').classList.toggle('hidden',v!==activeView));}));
+    $('#adminSwitch').addEventListener('click',()=>{const p=$('#adminPanel');p.classList.toggle('hidden');$('#adminSwitch').setAttribute('aria-expanded',!p.classList.contains('hidden'));if(!p.classList.contains('hidden'))p.scrollIntoView({behavior:'smooth'});});
+    $('#topicForm').addEventListener('submit',e=>{e.preventDefault();const data={title:$('#title').value.trim(),category:$('#category').value,content:$('#content').value.trim()};if(editingId){const i=topics.findIndex(t=>t.id===editingId);topics[i]={...topics[i],...data};}else topics.unshift({id:'topic-'+Date.now(),...data});save();e.target.reset();editingId=null;$('#saveTopic').textContent='Добавить тему';$('#cancelEdit').classList.add('hidden');render();});
+    $('#cancelEdit').addEventListener('click',()=>{$('#topicForm').reset();editingId=null;$('#saveTopic').textContent='Добавить тему';$('#cancelEdit').classList.add('hidden');});
+    render();
+  })();
+  </script>
+</body>
+</html>
