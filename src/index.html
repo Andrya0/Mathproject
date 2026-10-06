@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Короткие конспекты по математике для олимпиад." />
+  <title>Матемсок — теория к олимпиадам</title>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand"><div class="logo">∑</div><div><h1>МАТЕМСОК</h1><p class="scribble">сухая теория перед олимпиадой</p></div></div>
+      <button class="admin-switch" id="adminSwitch" aria-expanded="false">⚙ админка</button>
+    </header>
+    <nav class="topbar" aria-label="Главное меню">
+      <strong>📓 мой конспект</strong>
+      <button class="nav active" data-view="catalog">Все темы</button>
+      <button class="nav" data-view="marked">★ Помеченные</button>
+      <button class="nav" data-view="plan">Мой список</button>
+      <span class="stats" id="stats"></span>
+    </nav>
+    <main>
+      <section id="catalogView">
+        <div class="intro"><div><h2>Повтори главное, а не всё подряд</h2><p>Короткие формулы, определения и факты по темам, которые чаще всего выстреливают на математических олимпиадах.</p></div><span class="note">лучше 15 минут, чем паника!</span></div>
+        <div class="toolbar"><input id="search" type="search" placeholder="Найти тему или формулу..." aria-label="Поиск по темам"><div class="filters" id="filters"></div></div>
+        <div class="topic-grid" id="topicGrid"></div>
+      </section>
+      <section id="markedView" class="hidden"><div class="intro"><div><h2>★ Помеченные</h2><p>Твои быстрые закладки — как любимые треки, только без грустных песен.</p></div></div><div class="saved-list" id="markedList"></div></section>
+      <section id="planView" class="hidden"><div class="intro"><div><h2>Мой список повторения</h2><p>Собери здесь темы, которые точно надо пройти перед олимпиадой.</p></div><span class="note">убирай по мере готовности</span></div><div class="saved-list" id="planList"></div></section>
+      <section id="adminPanel" class="admin-panel hidden" aria-label="Панель администратора">
+        <h2>Панель администратора</h2><p>Добавляй новые карточки или меняй старые. Изменения хранятся в этом браузере.</p>
+        <form id="topicForm" class="editor">
+          <label class="field">Название темы<input id="title" required placeholder="Например: Комплексные числа"></label>
+          <label class="field">Раздел<select id="category"><option>Алгебра</option><option>Геометрия</option><option>Теория чисел</option><option>Комбинаторика</option></select></label>
+          <label class="field full">Короткий конспект<textarea id="content" required placeholder="Пиши коротко: определения, формулы, важные факты."></textarea></label>
+          <div class="form-actions"><button class="primary" type="submit" id="saveTopic">Добавить тему</button><button class="secondary hidden" type="button" id="cancelEdit">Отменить редактирование</button></div>
+        </form>
+        <div class="admin-list" id="adminList"></div>
+      </section>
+    </main>
+    <footer>Сделано для повторения. Ручка, черновик и голова — всё, что нужно.</footer>
+  </div>
+  <script src="./app.js"></script>
+</body>
+</html>
